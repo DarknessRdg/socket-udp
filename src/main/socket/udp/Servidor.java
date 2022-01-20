@@ -6,22 +6,22 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 public class Servidor {
+    public static void main(String[] args) throws IOException {
+        ServidorImpl servidor = new ServidorImpl(Config.PORT, Config.INPUT_SIZE);
+        servidor.run();
+    }
+}
+
+
+class ServidorImpl {
+
     DatagramSocket serverSocket;
     DatagramPacket clienteRecievePack;
 
     int inputSize;
     int porta;
 
-    public static void main(String[] args) throws IOException {
-        Servidor servidor = new Servidor();
-        servidor.run();
-    }
-
-    Servidor() throws SocketException {
-        this(Config.PORT, Config.INPUT_SIZE);
-    }
-
-    Servidor(int port, int inputSize) throws SocketException {
+    ServidorImpl(int port, int inputSize) throws SocketException {
         serverSocket = new DatagramSocket(port);
         this.inputSize = inputSize;
         this.porta = port;

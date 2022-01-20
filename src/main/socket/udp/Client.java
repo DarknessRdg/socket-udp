@@ -5,6 +5,14 @@ import java.net.*;
 import java.util.Scanner;
 
 public class Client {
+    public static void main(String[] args) throws IOException {
+        ClientImpl client = new ClientImpl(Config.PORT, Config.SERVIDOR_HOST, Config.INPUT_SIZE);
+        client.run();
+    }
+}
+
+
+class ClientImpl {
     Scanner input = new Scanner(System.in);
 
     DatagramSocket clientSocket;
@@ -14,17 +22,12 @@ public class Client {
     int serverPort;
     int inputSize;
 
-    Client(int serverPort, String serverHost, int maxInputSize) throws UnknownHostException {
+    ClientImpl(int serverPort, String serverHost, int maxInputSize) throws UnknownHostException {
         this.serverPort = serverPort;
         this.serverHost = serverHost;
         this.inputSize = maxInputSize;
 
         serverAddress = InetAddress.getByName(serverHost);
-    }
-
-    public static void main(String[] args) throws IOException {
-        Client client = new Client(Config.PORT, Config.SERVIDOR_HOST, Config.INPUT_SIZE);
-        client.run();
     }
 
     public void run() throws IOException {
@@ -86,5 +89,4 @@ public class Client {
     private void logRespostaRecebida(String resposta) {
         System.out.println("Resposta recebida: " + resposta);
     }
-
 }
