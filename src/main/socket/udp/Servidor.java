@@ -47,7 +47,7 @@ public class Servidor {
     }
 
     private String getResponseBody() {
-        String body = new String(clienteRecievePack.getData());
+        String body = StringUtils.fromBytes(clienteRecievePack.getData());
         logCorpoRequisicaoRecebido(body);
 
         return body;
@@ -59,7 +59,7 @@ public class Servidor {
         byte[] sendData = response.getBytes();
 
         DatagramPacket sendPacket = new DatagramPacket(
-                sendData, inputSize,
+                sendData, sendData.length,
                 clienteRecievePack.getAddress(),
                 clienteRecievePack.getPort()
         );
@@ -75,10 +75,12 @@ public class Servidor {
         System.out.println("Servidor rodando ...");
         System.out.println("Esperando uma requisição");
         System.out.println("Porta: " + porta);
+        System.out.println();
     }
 
     private void logConexaoAberta() {
-        System.out.println("Conexão aberta com: ");
+        System.out.println("--------------------------------------------------");
+        System.out.println("Conexão aberta com: " + clienteRecievePack.getSocketAddress());
     }
 
     private void logCorpoRequisicaoRecebido(String body) {

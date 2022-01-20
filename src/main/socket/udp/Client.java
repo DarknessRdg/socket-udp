@@ -28,7 +28,7 @@ public class Client {
     }
 
     public void run() throws IOException {
-        System.out.println("Inicializando socket ...");
+        logInitSocket();
         clientSocket = new DatagramSocket();
 
         String mensagem = getUserMessage();
@@ -67,7 +67,12 @@ public class Client {
     private byte[] getBuffer() { return new byte[inputSize]; }
 
     private String getUserMessage() {
+        System.out.print("Digite uma mensagem: ");
         return input.nextLine();
+    }
+
+    private void logInitSocket() {
+        System.out.println("Iniciando socket do clinete ...");
     }
 
     private void logEnviandoMensagem(String mensagem) {
